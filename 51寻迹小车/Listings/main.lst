@@ -1,0 +1,72 @@
+C51 COMPILER V9.54   MAIN                                                                  03/17/2021 12:51:41 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Program Files\MKD\C51\BIN\C51.EXE Src\main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          /*电子作品设计  广西大学 
+   2          自动化181 许志强 李昊 2021/02
+   3          主函数
+   4          */
+   5          #include "basic.h"    
+   6          
+   7          void main(void)       // 主函数
+   8          {
+   9   1        UartInit();
+  10   1        HC04_Init();
+  11   1        SendString("SystemInitial\r\n");
+  12   1        while(1)
+  13   1        {
+  14   2          HC04_Loop();   //超声波检测
+  15   2          if(EchoCnt < 15)      // 超声波距离小于10cm
+  16   2              {
+  17   3                //MotorContorl(STOP, 20);       // 小车停止
+  18   3      //          MOTOR0 = 1;
+  19   3      //      MOTOR1 = 0;
+  20   3      //      MOTOR2 = 0;
+  21   3      //      MOTOR3 = 1;       // 小车往左边走
+  22   3                  MotorContorl(LEFT, 25);   
+  23   3                //DelayMs(1000);
+  24   3      //          MOTOR0 = 0;
+  25   3      //      MOTOR1 = 1;
+  26   3      //      MOTOR2 = 0;
+  27   3      //      MOTOR3 = 1;
+  28   3                //DelayMs(1000);          
+  29   3              }
+  30   2              else
+  31   2              {
+  32   3                  if((GO_RIGHT == 1) && (GO_LEFT == 0))     // 寻迹右边红外检测到黑线
+  33   3                    {
+  34   4                      MotorContorl(RIGHT, 23);        // 小车往右边走
+  35   4                    }
+  36   3                    else if((GO_RIGHT == 0) && (GO_LEFT == 1))    // 小车左边红外检测到黑线
+  37   3                    {
+  38   4                      MotorContorl(LEFT, 23);       // 小车往左边走
+  39   4                    }
+  40   3                    else if((GO_RIGHT == 0) && (GO_LEFT == 0))    // 小车左右都没有检测到黑线
+  41   3                    {
+  42   4                      MotorContorl(FORWARD, 23);      // 小车直走
+  43   4                    }
+  44   3              }
+  45   2        }
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     75    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+C51 COMPILER V9.54   MAIN                                                                  03/17/2021 12:51:41 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

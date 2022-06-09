@@ -1,0 +1,91 @@
+C51 COMPILER V9.54   DCMOTOR                                                               03/17/2021 12:51:42 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DCMOTOR
+OBJECT MODULE PLACED IN .\Objects\DcMotor.obj
+COMPILER INVOKED BY: D:\Program Files\MKD\C51\BIN\C51.EXE Src\DcMotor.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRIN
+                    -T(.\Listings\DcMotor.lst) TABS(2) OBJECT(.\Objects\DcMotor.obj)
+
+line level    source
+
+   1          /*电子作品设计  广西大学 
+   2          自动化181 许志强 李昊 2021/02
+   3          电机控制
+   4          */
+   5          #include "dcmotor.h"
+   6          
+   7          /*
+   8            通过控制2个电机，控制小车运动。
+   9            dir表示运动方向
+  10            speed表示运动速度
+  11          */
+  12          void MotorContorl(MOTOR_DIR dir, u8 speed)
+  13          {
+  14   1        switch(dir)
+  15   1        {
+  16   2          // 前进
+  17   2          case FORWARD:
+  18   2            MOTOR0 = 0;
+  19   2            MOTOR1 = 1;
+  20   2            MOTOR2 = 0;
+  21   2            MOTOR3 = 1;
+  22   2          break;
+  23   2          // 后退
+  24   2          case BACKUP:
+  25   2            MOTOR0 = 1;
+  26   2            MOTOR1 = 0;
+  27   2            MOTOR2 = 1;
+  28   2            MOTOR3 = 0;
+  29   2          break;
+  30   2          // 左转
+  31   2          case LEFT:
+  32   2            MOTOR0 = 1;
+  33   2            MOTOR1 = 0;
+  34   2            MOTOR2 = 0;
+  35   2            MOTOR3 = 1;
+  36   2          break;
+  37   2          // 右转
+  38   2          case RIGHT:
+  39   2            MOTOR0 = 0;
+  40   2            MOTOR1 = 1;
+  41   2            MOTOR2 = 1;
+  42   2            MOTOR3 = 0;
+  43   2          break;
+  44   2          // 停止
+  45   2          case STOP:
+  46   2            MOTOR0 = 1;
+  47   2            MOTOR1 = 1;
+  48   2            MOTOR2 = 1;
+  49   2            MOTOR3 = 1;
+  50   2          break;
+  51   2          // 其他
+  52   2          default:
+  53   2            MOTOR0 = 1;
+  54   2            MOTOR1 = 1;
+C51 COMPILER V9.54   DCMOTOR                                                               03/17/2021 12:51:42 PAGE 2   
+
+  55   2            MOTOR2 = 1;
+  56   2            MOTOR3 = 1;
+  57   2          break;
+  58   2        }
+  59   1        DelayMs(speed);   // speed的值越大，速度越快
+  60   1        MOTOR0 = 1;
+  61   1        MOTOR1 = 1;
+  62   1        MOTOR2 = 1;
+  63   1        MOTOR3 = 1;
+  64   1        DelayMs(25 - speed);  // speed的值越大，延时时间越短，速度越快
+  65   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     87    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

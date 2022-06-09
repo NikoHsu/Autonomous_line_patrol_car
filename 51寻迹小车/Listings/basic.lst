@@ -1,0 +1,45 @@
+C51 COMPILER V9.54   BASIC                                                                 03/17/2021 12:51:41 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE BASIC
+OBJECT MODULE PLACED IN .\Objects\basic.obj
+COMPILER INVOKED BY: D:\Program Files\MKD\C51\BIN\C51.EXE Src\basic.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\basic.lst) TABS(2) OBJECT(.\Objects\basic.obj)
+
+line level    source
+
+   1          /*电子作品设计  广西大学 
+   2          自动化181 许志强 李昊 2021/02
+   3          延时
+   4          */
+   5          #include "basic.h"
+   6          /*
+   7            延时us，精度不高
+   8          */
+   9          void DelayUs(u16 i)
+  10          {
+  11   1        while(--i);
+  12   1      }
+  13          /*
+  14            延时ms，精度不高
+  15          */
+  16          void DelayMs(u16 t)
+  17          {
+  18   1        u16 i,j;
+  19   1        for(i=0; i<t; i++)
+  20   1          for(j=0; j<120; j++);
+  21   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     42    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

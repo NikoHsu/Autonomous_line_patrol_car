@@ -1,0 +1,59 @@
+C51 COMPILER V9.54   HC_SR04                                                               03/17/2021 12:51:42 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE HC_SR04
+OBJECT MODULE PLACED IN .\Objects\hc-sr04.obj
+COMPILER INVOKED BY: D:\Program Files\MKD\C51\BIN\C51.EXE Src\hc-sr04.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRIN
+                    -T(.\Listings\hc-sr04.lst) TABS(2) OBJECT(.\Objects\hc-sr04.obj)
+
+line level    source
+
+   1          /*电子作品设计  广西大学 
+   2          自动化181 许志强 李昊 2021/02
+   3          超声波避障
+   4          */
+   5          #include "hc-sr04.h"
+   6          
+   7          u16 EchoCnt;
+   8          
+   9          void HC04_Init(void)
+  10          {
+  11   1        Trig = 0;
+  12   1        Echo = 0;
+  13   1        TMOD &=0Xf0;
+  14   1        TMOD |=0X01;//使用模式1，16位定时器0;
+  15   1        TH0=0;//装初值
+  16   1        TL0=0;
+  17   1        EA=1;//开总中断
+  18   1        ET0=1;//开定时器0中断
+  19   1        TR0=0;//定时器0
+  20   1      }
+  21          
+  22          void HC04_Loop(void)
+  23          {  
+  24   1        Trig = 1;
+  25   1        DelayUs(20);
+  26   1        Trig = 0;
+  27   1        while(Echo == 0);
+  28   1        TH0=0;
+  29   1        TL0=0;
+  30   1        TR0=1;
+  31   1        while(Echo == 1);
+  32   1        EchoCnt = (TH0*256 + TL0)*1.7/100;
+  33   1        TR0=0;
+  34   1      }
+  35          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     95    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,7 @@
+".\Objects\main.obj",
+".\Objects\uart.obj",
+".\Objects\basic.obj",
+".\Objects\DcMotor.obj",
+".\Objects\hc-sr04.obj" 
+TO ".\Objects\keil" 
+PRINT(".\Listings\keil.m51") RAMSIZE(256) 
